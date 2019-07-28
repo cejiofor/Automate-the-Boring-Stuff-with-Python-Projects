@@ -1,7 +1,8 @@
-# phoneandEmail.py - fined phone numbers and email aadresses on the clipboard
+# phoneAndEmail.py - find phone numbers and email addresses on the clipboard
 
 import pyperclip, re 
 
+### SAMPLE CLIPBOARD TEXT ###
 # dog@the.com
 # 435-348-0223
 # Ahphabet soiur id gestg adfjaskh
@@ -17,7 +18,6 @@ phoneRegex = re.compile(r'''(
     (\s*(ext|x|ext.)\s*(\d{2,5}))?    # extension
 )''', re.VERBOSE)
 
-# TODO: Creat email regex
 emailRegex = re.compile(r'''(
 ([a-zA-Z0-9._%+-]+)                    #username
 (@)                                    #@ symbol
@@ -25,7 +25,6 @@ emailRegex = re.compile(r'''(
 ([a-zA-Z]{2,4})                        #TLD (.something)
 )''', re.VERBOSE)
 
-# TODO: Find matches in clipboard text
 text = str(pyperclip.paste())
 phoneMatches = phoneRegex.findall(text)
 emailMatches = emailRegex.findall(text)
@@ -37,10 +36,7 @@ for groups in phoneRegex.findall(text):
     matches.append(phoneNum)
 for groups in emailRegex.findall(text):
     matches.append(groups[0])
-# print(matches)
 
-
-# TODO: Copy results to the clipboard
 if len(matches)>0:
     pyperclip.copy('\n'.join(matches))
     print('Copied to the clipboard:')
